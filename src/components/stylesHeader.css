@@ -1,0 +1,21 @@
+.header-container {
+    width: 500px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.header-container > img {
+    height: 100px;
+    margin: 16px;
+    padding: 12px;
+    background-color: #ffffff;
+}
+
+.header-container > p {
+    color: #ffffff;
+    font-family: 'NotoSans-Bold', serif;
+    font-size: 70px;
+    font-weight: bold;
+    margin: 22px 0 0 10px;
+}

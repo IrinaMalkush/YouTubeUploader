@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: local('NotoSans'), url('./fonts/notosans.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: local('Noto Sans Italic'), url('./fonts/notosansbolditalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: local('NotoSans-Bold'), url('./fonts/notosansbold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: local('NotoSans-BoldItalic'), url('./fonts/notosansbolditalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
