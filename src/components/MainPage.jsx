@@ -1,32 +1,17 @@
 import React, { useEffect } from "react";
 import { Url } from "./Url";
-import { createStore } from "redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function MainPage() {
   
   useEffect(() => {
-    MakeRequestToServer(1);
-  }, []);
+    MakeRequestToServer(1)
+  }, [])
 
-  const initialState = {
-    items: null,
-    total: null,
-  };
-
-  const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      case "CHANGE_ITEMS":
-        return { ...state, items: action.payload };
-      case "CHANGE_TOTAL":
-        return { ...state, total: action.payload };
-    }
-    return state;
-  };
-
-  const store = createStore(reducer);
+  const dispatch = useDispatch();
 
   async function MakeRequestToServer(pageNumber) {
+    
     let response = await fetch(Url + `?page=${pageNumber}`);
     const data = await response.json();
 
@@ -40,11 +25,11 @@ export default function MainPage() {
       payload: data.total,
     };
 
-    store.dispatch(actionChangeTotal);
-    store.dispatch(actionChangeItems);
+    dispatch(actionChangeTotal);
+    dispatch(actionChangeItems);
   }
 
-  const CreateTable = () => {
+  const CreateTable = () => {  
     const items = useSelector(state => state.items);
 
     if (items == null)

@@ -4,7 +4,24 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import store from "./components/MainPage";
+import { createStore } from "redux";
+
+const initialState = {
+  items: null,
+  total: null,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "CHANGE_ITEMS":
+      return { ...state, items: action.payload };
+    case "CHANGE_TOTAL":
+      return { ...state, total: action.payload };
+  }
+  return state;
+};
+
+export const store = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
