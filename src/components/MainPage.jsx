@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { Url } from "./Url";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { CreateTable } from "./CreateTable";
 import "./stylesMainPage.css";
 
 export default function MainPage() {
   useEffect(() => {
-    MakeRequestToServer(1);
+    makeRequestToServer(1);
   }, []);
 
   const dispatch = useDispatch();
 
-  async function MakeRequestToServer(pageNumber) {
+  async function makeRequestToServer(pageNumber) {
     let response = await fetch(Url + `?page=${pageNumber}`);
     const data = await response.json();
 
@@ -27,33 +28,6 @@ export default function MainPage() {
     dispatch(actionChangeTotal);
     dispatch(actionChangeItems);
   }
-
-  const CreateTable = () => {
-    const items = useSelector((state) => state.items);
-
-    if (items == null)
-      return (
-        <tbody>
-          <tr><td>Загрузка...</td></tr>
-        </tbody>
-      );
-    else
-      return (
-        <tbody>
-          {items.map((item) => {
-            return (
-              <tr key={item.id}>
-                <td>{item.created}</td>
-                <td>{item.name}</td>
-                <td>{item.status}</td>
-                <td>{item.succeed}</td>
-                <td>{item.lastError}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      );
-  };
 
   return (
     <div className="main-table">
