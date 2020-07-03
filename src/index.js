@@ -4,24 +4,27 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
 const initialState = {
-  items: null,
-  total: null,
+  items: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "CHANGE_ITEMS":
-      return { ...state, items: action.payload };
-    case "CHANGE_TOTAL":
-      return { ...state, total: action.payload };
+    case "CHANGE_SUBTABLE_ITEMS":
+      return { ...state, items: [...state.items, ...action.items] };
+    default:
+      return state;
   }
-  return state;
 };
 
-export const store = createStore(reducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>
