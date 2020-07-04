@@ -14,10 +14,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "CHANGE_SUBTABLE_ITEMS":
-      return { ...state, items: [...state.items, ...action.items] };
-    default:
-      return state;
-  }
+      let newItems = state.items.slice().filter(item => item.fileId !== action.items[0].fileId);
+      return {...state, items: [...newItems, ...action.items] };
+      default:
+        return state;
+    }
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
