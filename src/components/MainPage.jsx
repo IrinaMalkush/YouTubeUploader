@@ -48,13 +48,13 @@ export default function MainPage() {
   if (isError) return <div>Сервер недоступен</div>;
   else
     return (
-      <div className="main-table">
+      <div className="main-table-container">
         <div>
           <p>Статус загрузки файлов</p>
         </div>
-        <table>
+        <table className="main-table">
           <thead>
-            <tr>
+            <tr className="table-head">
               <th>добавлен</th>
               <th>имя файла</th>
               <th>состояние</th>
@@ -64,14 +64,14 @@ export default function MainPage() {
           </thead>
           <tbody>
             {isLoading ? (
-              <tr>
+              <tr className="table-body">
                 <td colSpan="5">Загрузка...</td>
               </tr>
             ) : (
               data.items.map((item) => {
                 return (
                   <React.Fragment key={item.id}>
-                    <tr
+                    <tr className="table-body"
                       onClick={() => {
                         changeSubtableClassName(item.id);
                       }}
@@ -81,14 +81,14 @@ export default function MainPage() {
                       <td>{item.status}</td>
                       <td>{item.succeed}</td>
                       <td>{item.lastError}</td>
-                    </tr> 
+                    </tr>
                     <tr>
                       <td
                         colSpan="5"
                         className={"subTable" + item.id + " hiddenSubTable"}
                       >
                         { showingDetails.includes(item.id) === true
-                          ? 
+                          ?
                           <LoadSubTable id={item.id} />
                           : null}
                       </td>

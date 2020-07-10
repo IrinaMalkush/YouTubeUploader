@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { SubTableUrl } from "./Url";
 import { useDispatch, useSelector } from "react-redux";
 import "./stylesSubTable.css";
+import { itemsHasFetched, makeRequestToServer } from "../store/ActionCreator";
 
 export function LoadSubTable({ id }) {
   const dispatch = useDispatch();
@@ -10,26 +10,11 @@ export function LoadSubTable({ id }) {
     dispatch(makeRequestToServer(id));
   }, []);
 
-  function itemsHasFetched(items) {
-    return {
-      type: "CHANGE_SUBTABLE_ITEMS",
-      items,
-    };
-  }
-
-  function makeRequestToServer(id) {
-    return async (dispatch) => {
-      let responseSubTable = await fetch(SubTableUrl + id);
-      const dataSubTable = await responseSubTable.json();
-      dispatch(itemsHasFetched(dataSubTable));
-    };
-  }
-
   const subTableItems = useSelector((state) => state.items);
   const filteredItems = subTableItems.filter(item => item.fileId === id);
 
   return (
-    <table>
+    <table className="sub-table">
       <thead>
         <tr>
           <th>состояние</th>
