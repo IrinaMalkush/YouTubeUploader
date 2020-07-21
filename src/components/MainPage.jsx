@@ -1,30 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Url } from "./Url";
 import { LoadSubTable } from "./LoadSubTable";
+import { Pagination } from "./Pagination";
+import { NumberOfItemsOnPage } from "./NumberOfItemsOnPage";
+import { GetDate } from "./GetDate";
 import "./stylesMainPage.css";
 
 export default function MainPage() {
-  const [data, setData] = useState({ items: [], total: 0 });
+  const [data, setData] = useState({ items: [], totalPages: [] });
+  const [itemsOnPage, setItemsOnPage] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [showingDetails, setShowingDetails] = useState([]);
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
   useEffect(() => {
-    const fetchData = async (pageNumber) => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        let response = await fetch(Url + `?page=${pageNumber}`);
-        const result = await response.json();
-
-        setData({ items: result.items, total: result.total });
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
     fetchData(1);
-  }, []);
+  }, [itemsOnPage]);
+
+  const fetchData = async (pageNumber) => {
+    setIsError(false);
+    setIsLoading(true);
+    try {
+      let response = await fetch(Url + `?page=${pageNumber}&pagesize=${itemsOnPage}`);
+      const result = await response.json();
+
+      const pageNumbers = [];
+      if(result.total !== null) {
+        for(let i = 1; i <= Math.ceil(result.total/itemsOnPage); i++){
+          pageNumbers.push(i);
+        }
+      }
+
+      setData({ items: result.items, totalPages: pageNumbers });
+
+    } catch (error) {
+      setIsError(true);
+    }
+    setIsLoading(false);
+  };
 
   const changeSubtableClassName = (id) => {
     let subTab = document.getElementsByClassName("subTable" + id);
@@ -45,12 +59,23 @@ export default function MainPage() {
     setShowingDetails(newShowingDetails);
   };
 
+  const selectNumberOfItems = (num) => {
+    setItemsOnPage(num);
+    console.log("items on page:  " + itemsOnPage);
+  }
+
+  const clickedPage = (num) => {
+    setCurrentPageNumber(num);
+    fetchData(num);
+  }
+
   if (isError) return <div>Сервер недоступен</div>;
   else
     return (
       <div className="main-table-container">
-        <div>
-          <p>Статус загрузки файлов</p>
+        <div className="navigation">
+          <Pagination currentPageNumber={currentPageNumber} totalPageNumber={data.totalPages} clickedPage={clickedPage} />
+          <NumberOfItemsOnPage selectNumberOfItems={selectNumberOfItems} />
         </div>
         <table className="main-table">
           <thead>
@@ -76,11 +101,11 @@ export default function MainPage() {
                         changeSubtableClassName(item.id);
                       }}
                     >
-                      <td>{item.created}</td>
-                      <td>{item.name}</td>
-                      <td>{item.status}</td>
+                      <GetDate fetchedDate={item.created} />
+                      <td className="fileName-column">{item.name}</td>
+                      <td className="status-column">{item.status}</td>
                       <td>{item.succeed}</td>
-                      <td>{item.lastError}</td>
+                      <td className="error-column">{item.lastError}</td>
                     </tr>
                     <tr>
                       <td
@@ -99,6 +124,9 @@ export default function MainPage() {
             )}
           </tbody>
         </table>
+        <div className="navigation">
+          <Pagination currentPageNumber={currentPageNumber} totalPageNumber={data.totalPages} clickedPage={clickedPage} />
+        </div>
       </div>
     );
 }

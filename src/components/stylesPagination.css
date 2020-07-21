@@ -1,0 +1,34 @@
+.pagination {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 65px 10px 40px;
+}
+
+.pagination > li {
+    width: 50px;
+    padding: 8px 5px 5px 5px;
+    border: 1px solid #ffdec9;
+    cursor: pointer;
+}
+
+.pagination > li > span {
+    font-size: 16px;
+}
+
+.pagination > :first-child {
+    padding-top: 0;
+}
+
+.pagination > :first-child > span {
+    font-size: 25px;
+}
+
+.pagination > :last-child {
+    padding-top: 0;
+}
+
+.pagination > :last-child > span {
+    font-size: 25px;
+}

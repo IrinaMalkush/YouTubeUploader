@@ -1,0 +1,21 @@
+.number-of-items {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    height: 35px;
+}
+
+.number-of-items > p {
+    margin: 8px;
+    font-size: 16px;
+}
+
+.number-of-items > section {
+    font-size: 16px;
+}
+
+.number-of-items > option {
+    font-size: 14px;
+}

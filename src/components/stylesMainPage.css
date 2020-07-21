@@ -11,8 +11,9 @@ td {
 }
 
 .main-table {
-    margin-bottom: 75px;
+    margin-bottom: 10px;
     border-collapse: collapse;
+    width: 85%;
 }
 
 .table-head {
@@ -44,6 +45,7 @@ td {
 
 .visibleSubTable {
     background-color: #ffeade;
+    padding: 2px 2px 12px;
 }
 
 .sub-table {
@@ -52,3 +54,22 @@ td {
     background-color: #fff7f2;
 }
 
+.navigation{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+}
+
+.date-column {
+    width: 190px;
+}
+
+.fileName-column {
+    width: 340px;
+}
+
+.status-column {
+    width: 125px;
+}

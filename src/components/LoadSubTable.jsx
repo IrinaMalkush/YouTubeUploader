@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./stylesSubTable.css";
-import { itemsHasFetched, makeRequestToServer } from "../store/ActionCreator";
+import { makeRequestToServer } from "../store/ActionCreator";
 
 export function LoadSubTable({ id }) {
   const dispatch = useDispatch();
