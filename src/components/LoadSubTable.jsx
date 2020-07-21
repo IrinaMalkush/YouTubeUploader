@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./stylesSubTable.css";
 import { makeRequestToServer } from "../store/ActionCreator";
+import { GetDate } from "./GetDate";
 
 export function LoadSubTable({ id }) {
   const dispatch = useDispatch();
@@ -27,10 +28,10 @@ export function LoadSubTable({ id }) {
         {filteredItems.map((item) => {
           return (
             <tr key={item.status}>
-              <td>{item.status}</td>
-              <td>{item.lastTry}</td>
-              <td>{item.succeed}</td>
-              <td>{item.lastError}</td>
+                <td className="status-column">{item.status}</td>
+                <GetDate fetchedDate={item.lastTry} />
+                <GetDate fetchedDate={item.succeed} />
+                <td>{item.lastError}</td>
             </tr>
           );
         })}

@@ -57,7 +57,19 @@ export default function MainPage() {
       }
     }
     setShowingDetails(newShowingDetails);
+    changeClickedItemClassName(id);
   };
+
+  const changeClickedItemClassName = (id) => {
+    let clicked = document.getElementsByClassName("table-body" + id);
+    if (clicked[0].classList.contains("notClickedRow")) {
+      clicked[0].classList.remove("notClickedRow");
+      clicked[0].classList.add("clickedRow");
+    } else {
+      clicked[0].classList.add("notClickedRow");
+      clicked[0].classList.remove("clickedRow");
+    }
+  }
 
   const selectNumberOfItems = (num) => {
     setItemsOnPage(num);
@@ -96,7 +108,7 @@ export default function MainPage() {
               data.items.map((item) => {
                 return (
                   <React.Fragment key={item.id}>
-                    <tr className="table-body"
+                    <tr className={"table-body" + item.id + " notClickedRow"}
                       onClick={() => {
                         changeSubtableClassName(item.id);
                       }}
@@ -104,7 +116,7 @@ export default function MainPage() {
                       <GetDate fetchedDate={item.created} />
                       <td className="fileName-column">{item.name}</td>
                       <td className="status-column">{item.status}</td>
-                      <td>{item.succeed}</td>
+                      <GetDate fetchedDate={item.succeed} />
                       <td className="error-column">{item.lastError}</td>
                     </tr>
                     <tr>

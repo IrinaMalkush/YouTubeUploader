@@ -20,18 +20,18 @@ td {
     text-transform: uppercase;
 }
 
-.table-body {
+.notClickedRow {
     background-color: #f5f3e9;
+}
+
+.clickedRow {
+    background-color: #ffd8bf;
 }
 
 .table-body:nth-child(odd):hover {
     background-color: #FFC39E;
     transition-duration: .5s;
 }
-
-/*.table-body-clicked {*/
-/*    background-color: #ffd8bf;*/
-/*}*/
 
 .main-table-container {
     display: flex;
