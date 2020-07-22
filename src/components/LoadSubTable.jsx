@@ -18,7 +18,7 @@ export function LoadSubTable({ id }) {
       <div className="sub-table-container">
     <table className="sub-table">
       <thead>
-        <tr>
+        <tr className="subtable-head">
           <th>состояние</th>
           <th>последняя попытка</th>
           <th>завершено</th>

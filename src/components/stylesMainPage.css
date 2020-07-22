@@ -25,6 +25,10 @@ td {
     width: 190px;
 }
 
+.name-column-head {
+    width: 340px;
+}
+
 .name-column {
     width: 340px;
     vertical-align: top;
@@ -66,14 +70,17 @@ td {
 
 .table-head {
     text-transform: uppercase;
+    user-select: none;
 }
 
 .notClickedRow {
     background-color: #f5f3e9;
+    cursor: pointer;
 }
 
 .clickedRow {
     background-color: #ffd8bf;
+    cursor: pointer;
 }
 
 .notClickedRow:nth-child(odd):hover {
@@ -105,7 +112,7 @@ td {
 
 .sub-table td:nth-of-type(1),
 .sub-table th:nth-of-type(1) {
-    width: 120px;
+    width: 140px;
 }
 
 .sub-table td:nth-of-type(2),
@@ -159,4 +166,11 @@ td {
 
 .sub-table-container {
     width: 100%;
+}
+
+.subtable-head {
+    user-select: none;
+    text-align: center;
+    color: #696562;
+    background-color: #fff0e8;
 }

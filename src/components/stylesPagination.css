@@ -11,6 +11,7 @@
     height: 40px;
     border: 1px solid #ffdec9;
     cursor: pointer;
+    user-select: none;
 }
 
 .pagination > li > span {

@@ -94,10 +94,10 @@ export default function MainPage() {
             <thead>
               <tr className="table-head">
                 <th className="date-column">добавлен</th>
-                <th className="name-column">имя файла</th>
+                <th className="name-column-head">имя файла</th>
                 <th className="status-column">состояние</th>
                 <th className="date-column">завершено</th>
-                <th className="error-column">последняя ошибка</th>
+                <th>последняя ошибка</th>
               </tr>
             </thead>
             <tbody>
