@@ -15,6 +15,7 @@ export function LoadSubTable({ id }) {
   const filteredItems = subTableItems.filter(item => item.fileId === id);
 
   return (
+      <div className="sub-table-container">
     <table className="sub-table">
       <thead>
         <tr>
@@ -28,14 +29,15 @@ export function LoadSubTable({ id }) {
         {filteredItems.map((item) => {
           return (
             <tr key={item.status}>
-                <td className="status-column">{item.status}</td>
+                <td>{item.status}</td>
                 <GetDate fetchedDate={item.lastTry} />
                 <GetDate fetchedDate={item.succeed} />
-                <td>{item.lastError}</td>
+                <td><div><div>{item.lastError}</div></div></td>
             </tr>
           );
         })}
       </tbody>
     </table>
+      </div>
   );
 }

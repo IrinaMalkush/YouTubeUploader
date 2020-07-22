@@ -10,10 +10,58 @@ td {
     text-align: left;
 }
 
+.table-container {
+    width: 85%;
+}
+
 .main-table {
     margin-bottom: 10px;
     border-collapse: collapse;
-    width: 85%;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.date-column {
+    width: 190px;
+}
+
+.name-column {
+    width: 340px;
+    vertical-align: top;
+}
+
+.name-column > div,
+.error-column > div {
+    position: relative;
+}
+
+.name-column > div > div,
+.error-column > div > div {
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.name-column > div > div:hover,
+.error-column > div > div:hover {
+    z-index: 1;
+    width: auto;
+    white-space: normal;
+    background-color: #eae1dc;
+    padding: 8px 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    top: -8px;
+}
+
+.status-column {
+    width: 125px;
+}
+
+.error-column {
+    vertical-align: top;
 }
 
 .table-head {
@@ -28,7 +76,7 @@ td {
     background-color: #ffd8bf;
 }
 
-.table-body:nth-child(odd):hover {
+.notClickedRow:nth-child(odd):hover {
     background-color: #FFC39E;
     transition-duration: .5s;
 }
@@ -52,6 +100,47 @@ td {
     border-collapse: collapse;
     width: 100%;
     background-color: #fff7f2;
+    table-layout: fixed;
+}
+
+.sub-table td:nth-of-type(1),
+.sub-table th:nth-of-type(1) {
+    width: 120px;
+}
+
+.sub-table td:nth-of-type(2),
+.sub-table th:nth-of-type(2),
+.sub-table td:nth-of-type(3),
+.sub-table th:nth-of-type(3)
+{
+    width: 190px;
+}
+
+.sub-table td:nth-of-type(4) {
+    vertical-align: top;
+}
+
+.sub-table td:nth-of-type(4) > div {
+    position: relative;
+}
+
+.sub-table td:nth-of-type(4) > div > div {
+    display: inline-block;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sub-table td:nth-of-type(4) > div > div:hover {
+    z-index: 1;
+    width: auto;
+    white-space: normal;
+    background-color: #eae1dc;
+    padding: 8px 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    top: -8px;
 }
 
 .navigation{
@@ -62,14 +151,12 @@ td {
     justify-content: center;
 }
 
-.date-column {
-    width: 190px;
+.copyright {
+    align-self: flex-end;
+    margin-right: 20px;
+    font-size: 12px;
 }
 
-.fileName-column {
-    width: 340px;
-}
-
-.status-column {
-    width: 125px;
+.sub-table-container {
+    width: 100%;
 }

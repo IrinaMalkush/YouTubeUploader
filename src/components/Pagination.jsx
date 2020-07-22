@@ -7,7 +7,7 @@ return (
     <ul className="pagination">
         <li className={currentPageNumber === 1 ? 'disabled' : ''}><span onClick={()=>{clickedPage(1)}}>&laquo;</span></li>
         <li className={currentPageNumber === 1 ? 'disabled' : ''}><span onClick={()=>{clickedPage(currentPageNumber - 1)}}>&lt;</span></li>
-        {totalPages.map((number) =>  <li key={number}><span className={currentPageNumber===number ? 'disabled' : ''} onClick={() => clickedPage(number)}>{number}</span></li>)}
+        {totalPages.map((number) =>  <li key={number}><span className={currentPageNumber===number ? 'current-number' : ''} onClick={() => clickedPage(number)}>{number}</span></li>)}
         <li className={currentPageNumber === totalPages.length ? 'disabled' : ''}><span onClick={() => {clickedPage(currentPageNumber + 1)}}>&gt;</span></li>
         <li className={currentPageNumber === totalPages.length ? 'disabled' : ''}><span onClick={() => {clickedPage(totalPages.length)}}>&raquo;</span></li>
     </ul>

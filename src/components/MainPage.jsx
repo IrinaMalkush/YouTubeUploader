@@ -89,56 +89,59 @@ export default function MainPage() {
           <Pagination currentPageNumber={currentPageNumber} totalPageNumber={data.totalPages} clickedPage={clickedPage} />
           <NumberOfItemsOnPage selectNumberOfItems={selectNumberOfItems} />
         </div>
-        <table className="main-table">
-          <thead>
-            <tr className="table-head">
-              <th>добавлен</th>
-              <th>имя файла</th>
-              <th>состояние</th>
-              <th>завершено</th>
-              <th>последняя ошибка</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr className="table-body">
-                <td colSpan="5">Загрузка...</td>
+        <div className="table-container">
+          <table className="main-table">
+            <thead>
+              <tr className="table-head">
+                <th className="date-column">добавлен</th>
+                <th className="name-column">имя файла</th>
+                <th className="status-column">состояние</th>
+                <th className="date-column">завершено</th>
+                <th className="error-column">последняя ошибка</th>
               </tr>
-            ) : (
-              data.items.map((item) => {
-                return (
-                  <React.Fragment key={item.id}>
-                    <tr className={"table-body" + item.id + " notClickedRow"}
-                      onClick={() => {
-                        changeSubtableClassName(item.id);
-                      }}
-                    >
-                      <GetDate fetchedDate={item.created} />
-                      <td className="fileName-column">{item.name}</td>
-                      <td className="status-column">{item.status}</td>
-                      <GetDate fetchedDate={item.succeed} />
-                      <td className="error-column">{item.lastError}</td>
-                    </tr>
-                    <tr>
-                      <td
-                        colSpan="5"
-                        className={"subTable" + item.id + " hiddenSubTable"}
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr className="table-body">
+                  <td colSpan="5">Загрузка...</td>
+                </tr>
+              ) : (
+                data.items.map((item) => {
+                  return (
+                    <React.Fragment key={item.id}>
+                      <tr className={"table-body" + item.id + " notClickedRow"}
+                        onClick={() => {
+                          changeSubtableClassName(item.id);
+                        }}
                       >
-                        { showingDetails.includes(item.id) === true
-                          ?
-                          <LoadSubTable id={item.id} />
-                          : null}
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                        <GetDate fetchedDate={item.created} />
+                        <td className="name-column"><div><div>{item.name}</div></div></td>
+                        <td className="status-column">{item.status}</td>
+                        <GetDate fetchedDate={item.succeed} />
+                        <td className="error-column"><div><div>{item.lastError}</div></div></td>
+                      </tr>
+                      <tr>
+                        <td
+                          colSpan="5"
+                          className={"subTable" + item.id + " hiddenSubTable"}
+                        >
+                          { showingDetails.includes(item.id) === true
+                            ?
+                            <LoadSubTable id={item.id} />
+                            : null}
+                        </td>
+                      </tr>
+                    </React.Fragment>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
         <div className="navigation">
           <Pagination currentPageNumber={currentPageNumber} totalPageNumber={data.totalPages} clickedPage={clickedPage} />
         </div>
+        <div className="copyright"><p>&copy; Разработка сайта Ирина Малкуш, 2020</p></div>
       </div>
     );
 }
