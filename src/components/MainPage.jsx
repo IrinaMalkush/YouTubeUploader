@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Url } from "./Url";
 import { LoadSubTable } from "./LoadSubTable";
 import { Pagination } from "./Pagination";
 import { NumberOfItemsOnPage } from "./NumberOfItemsOnPage";
 import { GetDate } from "./GetDate";
 import "./stylesMainPage.css";
+import { VisibilityFilters, filterHasSet } from "../store/ActionCreator";
 
 export default function MainPage() {
   const [data, setData] = useState({ items: [], totalPages: [] });
@@ -13,6 +15,8 @@ export default function MainPage() {
   const [isError, setIsError] = useState(false);
   const [showingDetails, setShowingDetails] = useState([]);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData(1);
@@ -24,7 +28,6 @@ export default function MainPage() {
     try {
       let response = await fetch(Url + `?page=${pageNumber}&pagesize=${itemsOnPage}`);
       const result = await response.json();
-
       const pageNumbers = [];
       if(result.total !== null) {
         for(let i = 1; i <= Math.ceil(result.total/itemsOnPage); i++){
@@ -73,7 +76,6 @@ export default function MainPage() {
 
   const selectNumberOfItems = (num) => {
     setItemsOnPage(num);
-    console.log("items on page:  " + itemsOnPage);
   }
 
   const clickedPage = (num) => {
@@ -81,11 +83,38 @@ export default function MainPage() {
     fetchData(num);
   }
 
+  const visibility = useSelector((state) => state.filter);
+  const filteredItems = setVisibilityFilter(data.items, visibility);
+
+  function setVisibilityFilter(items, filter) {
+    let results = [];
+    switch (filter) {
+      case VisibilityFilters.SHOW_ALL:
+        results = items;
+        break;
+      case VisibilityFilters.SHOW_COMPLETED:
+        results = items.filter(item => item.succeed != null);
+        break;
+      case VisibilityFilters.SHOW_UNDONE:
+        results = items.filter(item => item.succeed == null);
+        break;
+    }
+    return results;
+  }
+
   if (isError) return <div>Сервер недоступен</div>;
   else
     return (
       <div className="main-table-container">
         <div className="navigation">
+          <div>
+            <span>Показать </span>
+            <select onChange={(e) => dispatch(filterHasSet(e.target.value))}>
+              <option value={VisibilityFilters.SHOW_ALL}>все</option>
+              <option value={VisibilityFilters.SHOW_COMPLETED}>завершенные</option>
+              <option value={VisibilityFilters.SHOW_UNDONE}>незагруженные</option>
+            </select>
+          </div>
           <Pagination currentPageNumber={currentPageNumber} totalPageNumber={data.totalPages} clickedPage={clickedPage} />
           <NumberOfItemsOnPage selectNumberOfItems={selectNumberOfItems} />
         </div>
@@ -106,7 +135,7 @@ export default function MainPage() {
                   <td colSpan="5">Загрузка...</td>
                 </tr>
               ) : (
-                data.items.map((item) => {
+                  filteredItems.map((item) => {
                   return (
                     <React.Fragment key={item.id}>
                       <tr className={"table-body" + item.id + " notClickedRow"}

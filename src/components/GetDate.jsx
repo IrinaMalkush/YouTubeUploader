@@ -1,7 +1,7 @@
 import React from "react";
 
 export function GetDate({fetchedDate}) {
-    if(fetchedDate!==null){
+    if(fetchedDate){
     let dateOfCreation = fetchedDate.split("T");
     let reversedDate = dateOfCreation[0].split("-").reverse();
     let timeOfCreation = (dateOfCreation[1].split("."))[0];
