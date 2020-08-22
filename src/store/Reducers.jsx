@@ -9,8 +9,9 @@ const initialState = {
 export const loadingDetails = (state = initialState.items, action) => {
     switch (action.type) {
         case CHANGE_SUBTABLE_ITEMS:
-            console.log(state.items);
-            let newItems = state.items.slice().filter(item => item.fileId !== action.items[0].fileId);
+            let newItems = state.items === undefined
+                ? []
+                : state.items.slice().filter(item => item.fileId !== action.items[0].fileId);s
             return {...state, items: [...newItems, ...action.items] };
         default:
             return state;
