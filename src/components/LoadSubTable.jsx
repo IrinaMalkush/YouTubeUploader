@@ -12,7 +12,7 @@ export function LoadSubTable({ id }) {
   }, []);
 
   const subTableItems = useSelector((state) => state.items);
-  const filteredItems = subTableItems.items === undefined ? [] : subTableItems.items.filter(item => item.fileId === id);
+  const filteredItems = subTableItems.filter(item => item.fileId === id);
 
   return (
       <div className="sub-table-container">
